@@ -1,21 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>StudyAI</title>
+<title>StudyAI – Free AI Study Partner</title>
+
+<style>
+body {
+font-family: Arial;
+background-color: #f0f4f8;
+text-align: center;
+padding: 20px;
+}
+
+h1 {
+color: #2c3e50;
+}
+
+textarea {
+width: 90%;
+height: 150px;
+margin-top: 10px;
+}
+
+button {
+background-color: #3498db;
+color: white;
+padding: 10px 20px;
+border: none;
+margin-top: 10px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #2980b9;
+}
+
+</style>
+
 </head>
 
 <body>
 
 <h1>📚 StudyAI – Free AI Study Partner</h1>
 
-<p>Welcome to StudyAI</p>
+<p>Paste your question or notes:</p>
 
-<textarea placeholder="Paste your question here"></textarea>
+<textarea id="notes" placeholder="Paste here..."></textarea>
 
-<br><br>
+<br>
 
-<button>Get Answer</button>
+<button onclick="saveNotes()">💾 Save Notes</button>
+
+<button onclick="showAnswer()">🤖 Generate Answer</button>
+
+<p id="message"></p>
+
+<script>
+
+function saveNotes() {
+
+let notes = document.getElementById("notes").value;
+
+localStorage.setItem("studyai_notes", notes);
+
+document.getElementById("message").innerHTML = "✅ Notes Saved Successfully!";
+
+}
+
+
+window.onload = function() {
+
+let saved = localStorage.getItem("studyai_notes");
+
+if(saved){
+
+document.getElementById("notes").value = saved;
+
+}
+
+}
+
+
+function showAnswer(){
+
+document.getElementById("message").innerHTML =
+"⚠️ AI Answer feature coming soon";
+
+}
+
+</script>
 
 </body>
-
 </html>
