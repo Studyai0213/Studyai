@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>StudyAI – Free AI Study Partner</title>
+<title>StudyAI - Real AI</title>
 
 <style>
-body {
+
+body{
 font-family: Arial;
-background-color: #f0f4f8;
-text-align: center;
-padding: 20px;
+background: linear-gradient(to right,#667eea,#764ba2);
+text-align:center;
+color:white;
+padding:40px;
 }
 
-h1 {
-color: #2c3e50;
+.container{
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
+max-width:400px;
+margin:auto;
 }
 
-textarea {
-width: 90%;
-height: 150px;
-margin-top: 10px;
+textarea{
+width:100%;
+padding:10px;
+border-radius:10px;
 }
 
-button {
-background-color: #3498db;
-color: white;
-padding: 10px 20px;
-border: none;
-margin-top: 10px;
-cursor: pointer;
+button{
+background:#667eea;
+color:white;
+border:none;
+padding:10px;
+border-radius:10px;
+width:100%;
+margin-top:10px;
 }
 
-button:hover {
-background-color: #2980b9;
+#result{
+margin-top:15px;
 }
 
 </style>
@@ -40,53 +49,40 @@ background-color: #2980b9;
 
 <body>
 
-<h1>📚 StudyAI – Free AI Study Partner</h1>
+<div class="container">
 
-<p>Paste your question or notes:</p>
+<h2>📚 StudyAI</h2>
 
-<textarea id="notes" placeholder="Paste here..."></textarea>
+<textarea id="question" placeholder="Ask any question"></textarea>
 
-<br>
+<button onclick="askAI()">Get Answer</button>
 
-<button onclick="saveNotes()">💾 Save Notes</button>
+<p id="result">Answer will appear here...</p>
 
-<button onclick="showAnswer()">🤖 Generate Answer</button>
-
-<p id="message"></p>
+</div>
 
 <script>
 
-function saveNotes() {
+async function askAI(){
 
-let notes = document.getElementById("notes").value;
+let question=document.getElementById("question").value;
 
-localStorage.setItem("studyai_notes", notes);
+document.getElementById("result").innerHTML="⏳ Thinking...";
 
-document.getElementById("message").innerHTML = "✅ Notes Saved Successfully!";
+let response=await fetch(
+"https://api.allorigins.win/raw?url=https://api.popcat.xyz/chatbot?msg="
++encodeURIComponent(question)
+);
 
-}
+let data=await response.json();
 
-
-window.onload = function() {
-
-let saved = localStorage.getItem("studyai_notes");
-
-if(saved){
-
-document.getElementById("notes").value = saved;
-
-}
-
-}
-
-
-function showAnswer(){
-
-window.open("https://gemini.google.com", "_blank");
+document.getElementById("result").innerHTML=
+"🤖 "+data.response;
 
 }
 
 </script>
 
 </body>
+
 </html>
